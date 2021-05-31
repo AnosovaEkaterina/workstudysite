@@ -1,0 +1,1282 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: mainpage_favorites; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainpage_favorites (
+    id integer NOT NULL,
+    program_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.mainpage_favorites OWNER TO postgres;
+
+--
+-- Name: mainpage_favorites_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.mainpage_favorites ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.mainpage_favorites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: mainpage_programwork; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainpage_programwork (
+    id integer NOT NULL,
+    program_name character varying(100) NOT NULL,
+    program_describe character varying(500) NOT NULL,
+    program_during character varying(50) NOT NULL,
+    program_employment character varying(50) NOT NULL,
+    program_direction character varying(500) NOT NULL,
+    program_requirement character varying(500) NOT NULL,
+    program_contact character varying(100) NOT NULL,
+    program_picture character varying(100) NOT NULL,
+    program_timing character varying(50) NOT NULL,
+    program_paying character varying(50) NOT NULL,
+    program_count_favourite integer DEFAULT 0
+);
+
+
+ALTER TABLE public.mainpage_programwork OWNER TO postgres;
+
+--
+-- Name: mainpage_programwork_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.mainpage_programwork_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mainpage_programwork_id_seq OWNER TO postgres;
+
+--
+-- Name: mainpage_programwork_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.mainpage_programwork_id_seq OWNED BY public.mainpage_programwork.id;
+
+
+--
+-- Name: mainpage_users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mainpage_users (
+    id integer NOT NULL,
+    user_name character varying(50) NOT NULL,
+    user_address character varying(50) NOT NULL,
+    user_username character varying(30) NOT NULL,
+    user_status boolean NOT NULL,
+    user_password bytea NOT NULL
+);
+
+
+ALTER TABLE public.mainpage_users OWNER TO postgres;
+
+--
+-- Name: mainpage_users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.mainpage_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mainpage_users_id_seq OWNER TO postgres;
+
+--
+-- Name: mainpage_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.mainpage_users_id_seq OWNED BY public.mainpage_users.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: mainpage_programwork id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_programwork ALTER COLUMN id SET DEFAULT nextval('public.mainpage_programwork_id_seq'::regclass);
+
+
+--
+-- Name: mainpage_users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_users ALTER COLUMN id SET DEFAULT nextval('public.mainpage_users_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add program work	7	add_programwork
+26	Can change program work	7	change_programwork
+27	Can delete program work	7	delete_programwork
+28	Can view program work	7	view_programwork
+29	Can add users	8	add_users
+30	Can change users	8	change_users
+31	Can delete users	8	delete_users
+32	Can view users	8	view_users
+33	Can add favorite	9	add_favorite
+34	Can change favorite	9	change_favorite
+35	Can delete favorite	9	delete_favorite
+36	Can view favorite	9	view_favorite
+37	Can add favorites	10	add_favorites
+38	Can change favorites	10	change_favorites
+39	Can delete favorites	10	delete_favorites
+40	Can view favorites	10	view_favorites
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$216000$yS4U3yVlu9pV$DF+pz0dLfRn7e/WjppmZEkCeuYouP5TVObhtfW5ryaw=	2021-05-07 21:40:59.74579+04	t	admin			fox9816@mail.ru	t	t	2021-01-17 19:11:28.795615+04
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2021-01-18 18:47:29.784943+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture", "Program describe", "Program during", "Program employment", "Program direction", "Program requirement", "Program contact"]}}]	7	1
+2	2021-01-18 20:15:12.926196+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program describe", "Program during", "Program employment"]}}]	7	1
+3	2021-01-18 20:31:02.215204+04	2	UNILEVER FUTURE LEADERS PROGRAMME	1	[{"added": {}}]	7	1
+4	2021-01-18 20:34:38.562807+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+5	2021-01-18 20:39:59.313996+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+6	2021-01-18 20:40:31.99915+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[]	7	1
+7	2021-01-18 20:42:50.530174+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+8	2021-01-18 20:42:59.504407+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+9	2021-01-18 20:43:10.862867+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+10	2021-01-18 20:43:19.018298+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+11	2021-01-18 20:46:41.179239+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+12	2021-01-18 20:46:59.674901+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+13	2021-01-18 20:50:04.602846+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+14	2021-01-18 20:50:13.080256+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+15	2021-01-18 20:51:02.661605+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+16	2021-01-18 20:51:10.867369+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+17	2021-01-18 20:52:01.391446+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+18	2021-01-18 20:52:10.645727+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+19	2021-01-18 21:09:05.875024+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+20	2021-01-18 21:09:14.813868+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+21	2021-01-18 21:09:33.532288+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+22	2021-01-18 21:09:44.187273+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+23	2021-01-18 21:09:49.615471+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+24	2021-01-18 21:09:59.483162+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+25	2021-01-18 21:12:01.261901+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+26	2021-01-18 21:12:09.757494+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+27	2021-01-18 21:17:49.889221+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+28	2021-01-18 21:18:03.256011+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+29	2021-01-18 21:19:12.1235+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+30	2021-01-18 21:23:49.08568+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+31	2021-01-18 21:27:08.438253+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+32	2021-01-18 21:28:52.186426+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+33	2021-01-18 21:32:45.56264+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+34	2021-01-18 21:34:27.867831+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+35	2021-01-18 21:52:28.161336+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+36	2021-01-19 18:38:11.160087+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+37	2021-01-19 18:43:38.680846+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+38	2021-01-19 19:34:50.560922+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+39	2021-01-19 19:46:39.313368+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+40	2021-01-19 19:53:18.675322+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+41	2021-01-19 19:53:26.698336+04	1	ProgramWork object (1)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+42	2021-01-19 19:56:58.26517+04	2	ProgramWork object (2)	2	[{"changed": {"fields": ["Program picture"]}}]	7	1
+43	2021-01-20 02:22:26.865561+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program paying"]}}]	7	1
+44	2021-01-20 02:31:06.939428+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program during", "Program direction", "Program requirement"]}}]	7	1
+45	2021-01-20 02:35:27.793788+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program direction", "Program requirement", "Program timing"]}}]	7	1
+46	2021-01-20 03:05:41.916574+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program employment"]}}]	7	1
+47	2021-01-20 03:05:53.089068+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program employment"]}}]	7	1
+48	2021-01-20 03:17:03.971121+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program employment"]}}]	7	1
+49	2021-01-20 18:43:16.271162+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program during"]}}]	7	1
+50	2021-01-20 19:15:03.905718+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program during"]}}]	7	1
+51	2021-01-20 19:16:53.86794+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program during"]}}]	7	1
+52	2021-01-20 22:23:46.371037+04	2	UNILEVER FUTURE LEADERS PROGRAMME	2	[{"changed": {"fields": ["Program requirement", "Program contact"]}}]	7	1
+53	2021-01-20 22:24:26.124654+04	1	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	2	[{"changed": {"fields": ["Program requirement", "Program contact"]}}]	7	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	mainpage	programwork
+8	mainpage	users
+9	mainpage	favorite
+10	mainpage	favorites
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2021-01-17 17:14:23.791285+04
+2	auth	0001_initial	2021-01-17 17:14:23.857176+04
+3	admin	0001_initial	2021-01-17 17:14:23.960315+04
+4	admin	0002_logentry_remove_auto_add	2021-01-17 17:14:23.980691+04
+5	admin	0003_logentry_add_action_flag_choices	2021-01-17 17:14:23.988492+04
+6	contenttypes	0002_remove_content_type_name	2021-01-17 17:14:24.012757+04
+7	auth	0002_alter_permission_name_max_length	2021-01-17 17:14:24.02001+04
+8	auth	0003_alter_user_email_max_length	2021-01-17 17:14:24.02621+04
+9	auth	0004_alter_user_username_opts	2021-01-17 17:14:24.036183+04
+10	auth	0005_alter_user_last_login_null	2021-01-17 17:14:24.044167+04
+11	auth	0006_require_contenttypes_0002	2021-01-17 17:14:24.046182+04
+12	auth	0007_alter_validators_add_error_messages	2021-01-17 17:14:24.053137+04
+13	auth	0008_alter_user_username_max_length	2021-01-17 17:14:24.073725+04
+14	auth	0009_alter_user_last_name_max_length	2021-01-17 17:14:24.082021+04
+15	auth	0010_alter_group_name_max_length	2021-01-17 17:14:24.089378+04
+16	auth	0011_update_proxy_permissions	2021-01-17 17:14:24.097626+04
+17	auth	0012_alter_user_first_name_max_length	2021-01-17 17:14:24.104398+04
+18	sessions	0001_initial	2021-01-17 17:14:24.117359+04
+53	mainpage	0001_initial	2021-05-30 15:38:22.731551+04
+54	mainpage	0002_programwork_program_picture	2021-05-30 15:38:22.75367+04
+55	mainpage	0003_programwork_program_timing	2021-05-30 15:38:22.75367+04
+56	mainpage	0004_auto_20210119_2154	2021-05-30 15:38:22.75367+04
+57	mainpage	0005_auto_20210120_2313	2021-05-30 15:38:22.75367+04
+58	mainpage	0006_users_user_status	2021-05-30 15:38:22.75367+04
+59	mainpage	0007_auto_20210121_0345	2021-05-30 15:38:22.75367+04
+60	mainpage	0008_auto_20210121_0352	2021-05-30 15:38:22.75367+04
+61	mainpage	0009_auto_20210309_2031	2021-05-30 15:38:22.75367+04
+62	mainpage	0010_auto_20210508_1416	2021-05-30 15:38:22.75367+04
+63	mainpage	0011_auto_20210508_2338	2021-05-30 15:38:22.75367+04
+64	mainpage	0012_favorite	2021-05-30 15:38:22.75367+04
+65	mainpage	0013_remove_favorite_favorite_id	2021-05-30 15:38:22.75367+04
+66	mainpage	0014_auto_20210516_1857	2021-05-30 15:38:22.769327+04
+67	mainpage	0015_auto_20210516_1933	2021-05-30 15:38:22.769327+04
+68	mainpage	0016_auto_20210527_1501	2021-05-30 15:38:22.769327+04
+69	mainpage	0017_auto_20210527_1505	2021-05-30 15:38:22.769327+04
+70	mainpage	0018_auto_20210528_1400	2021-05-30 15:38:22.769327+04
+71	mainpage	0019_auto_20210528_1404	2021-05-30 15:38:22.769327+04
+72	mainpage	0020_auto_20210528_1451	2021-05-30 15:38:22.769327+04
+73	mainpage	0021_auto_20210528_1834	2021-05-30 15:38:22.769327+04
+74	mainpage	0022_programwork_program_count_favourite	2021-05-30 15:38:22.769327+04
+75	mainpage	0023_auto_20210530_1412	2021-05-30 15:38:22.769327+04
+76	mainpage	0024_auto_20210530_1414	2021-05-30 15:38:22.769327+04
+77	mainpage	0025_auto_20210530_1415	2021-05-30 15:38:22.784917+04
+78	mainpage	0026_auto_20210530_1529	2021-05-30 15:38:22.784917+04
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+xim7nmh55gdqqciggiyfyde6h7u4lfs1	eyJ1c2VyX2lkIjowLjQyMTU1NzU4NDM2NDI1NDN9:1lJgDU:V-xpW79wFw9WOhQc6YEdI7XKTw5Lgy9AIjCCnyWA-pQ	2021-03-23 21:32:20.100329+04
+4ct9kd6gf74a11u0buxxm6np8dk67lwi	.eJxVjDsOwjAQBe_iGlne9S-ipOcMkde7xgFkS_lUiLtDpBTQvpl5LzWmba3jtsg8TqzOCtTpd6OUH9J2wPfUbl3n3tZ5Ir0r-qCLvnaW5-Vw_w5qWuq3tohA4qMLZojGAxMxBKHsTLbgcrAU0fpikIBDGYrP0UESNIIYI6v3B8aQN1I:1l7CdM:WlRMhe20jfzngrv88T4HZ-gwQaIjEXKHasE5qh5Ik2I	2021-02-17 11:31:28.117274+04
+s65wff6ofyth732x00f3o6j6ehrv5xoc	.eJxVjDsOwjAQBe_iGlne9S-ipOcMkde7xgFkS_lUiLtDpBTQvpl5LzWmba3jtsg8TqzOCtTpd6OUH9J2wPfUbl3n3tZ5Ir0r-qCLvnaW5-Vw_w5qWuq3tohA4qMLZojGAxMxBKHsTLbgcrAU0fpikIBDGYrP0UESNIIYI6v3B8aQN1I:1lnhHM:xezVWso9Kbr2UOv8dZYSoJzJWTLGsXDM2EN36sK2aMM	2021-06-14 16:44:24.338238+04
+\.
+
+
+--
+-- Data for Name: mainpage_favorites; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainpage_favorites (id, program_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mainpage_programwork; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainpage_programwork (id, program_name, program_describe, program_during, program_employment, program_direction, program_requirement, program_contact, program_picture, program_timing, program_paying, program_count_favourite) FROM stdin;
+137	Построй карьеру в 'Открытии' - программа стажировки 'Старт карьеры'	"Старт карьеры" - стажировка московских и региональных офисах банка "Открытие" для студентов 3-6 курсов. Длится от двух месяцев, полный рабочий день.	до 12 месяцев	Частичная занятость	- HR и рекрутинг\r\n- IT-аналитика\r\n- Аналитика продаж\r\n- Обслуживание клиентов	- Обучение на 3-6 курсе\r\n- Есть возможность работать фулл-тайм\r\n- Заинтересован в трудоустройстве	+7 927 828 31 12	downloadimagesprogram/1.jpg	9 декабря - 1 июля	от 30 тысяч	0
+136	UNILEVER FUTURE LEADERS PROGRAMME	Лидерская программа Unilever Future Leaders Programme для выпускников вузов в маркетинге, финансах, R&D, поддержке клиентов, HR и Supply Chain.	7 месяцев	Полная занятость	- Маркетинг\r\n- Развитие клиентов\r\n- Управление персоналом\r\n- Управление цепями поставок\r\n- Финансы\r\n- Исследования	- Закончил бакалавриат или специалитет\r\n- Уровень английского не ниже Upper-Intermediate\r\n-Готовность к переезду	+7 937-454-17-84	downloadimagesprogram/2.jpg	 круглый год	неоплачиваемая	0
+\.
+
+
+--
+-- Data for Name: mainpage_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mainpage_users (id, user_name, user_address, user_username, user_status, user_password) FROM stdin;
+36	Екатерина Романовна Аносова	fox9816@mail.ru	admin	t	\\x243262243132243553312f534265316d387a2f2e734b634d6d78383375524344615a7a67437756676f6f55556f6b43612e2f6e4c5a73544249683465
+37	Истомин Александр Михайлович	ignor699@mail.ru	foxys	f	\\x2432622431322464516f4875485a55396d324266536c474e41447347654444505733726c61574a6d6f703172555a4c5a626147435a5a7369526d7543
+81	Иванов Иван Иванович	ivanov@mail.ru	ivanov78	f	\\x243262243132245278785472684c57696b465a524635514e4b4e7735654358494c456439684e667142517a7068517864354463706a6d6c4b36545057
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 40, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 53, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 10, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 78, true);
+
+
+--
+-- Name: mainpage_favorites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mainpage_favorites_id_seq', 121, true);
+
+
+--
+-- Name: mainpage_programwork_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mainpage_programwork_id_seq', 139, true);
+
+
+--
+-- Name: mainpage_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mainpage_users_id_seq', 81, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: mainpage_favorites mainpage_favorites_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_favorites
+    ADD CONSTRAINT mainpage_favorites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mainpage_programwork mainpage_programwork_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_programwork
+    ADD CONSTRAINT mainpage_programwork_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mainpage_users mainpage_users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_users
+    ADD CONSTRAINT mainpage_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mainpage_users mainpage_users_user_address_961a5558_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_users
+    ADD CONSTRAINT mainpage_users_user_address_961a5558_uniq UNIQUE (user_address);
+
+
+--
+-- Name: mainpage_users mainpage_users_user_username_70ddb7c2_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_users
+    ADD CONSTRAINT mainpage_users_user_username_70ddb7c2_uniq UNIQUE (user_username);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: fki_mainpage_program_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX fki_mainpage_program_id ON public.mainpage_favorites USING btree (program_id);
+
+
+--
+-- Name: fki_mainpage_user_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX fki_mainpage_user_id ON public.mainpage_favorites USING btree (user_id);
+
+
+--
+-- Name: mainpage_users_user_address_961a5558_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainpage_users_user_address_961a5558_like ON public.mainpage_users USING btree (user_address varchar_pattern_ops);
+
+
+--
+-- Name: mainpage_users_user_username_70ddb7c2_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mainpage_users_user_username_70ddb7c2_like ON public.mainpage_users USING btree (user_username varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mainpage_favorites mainpage_program_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_favorites
+    ADD CONSTRAINT mainpage_program_id FOREIGN KEY (program_id) REFERENCES public.mainpage_programwork(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: mainpage_favorites mainpage_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mainpage_favorites
+    ADD CONSTRAINT mainpage_user_id FOREIGN KEY (user_id) REFERENCES public.mainpage_users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
