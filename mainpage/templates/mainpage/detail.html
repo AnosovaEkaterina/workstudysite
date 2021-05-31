@@ -1,0 +1,54 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+         {% if 'user_session' in request.session%}
+            <a class="right" href="{%url 'mains:login' %}">{{username}} - Выйти</a>
+        {% else %}
+            <a class="right" href="{%url 'mains:login' %}">Вход</a>
+        {% endif %}
+    </div>
+</div>
+<div class="programcontent">
+    <br>
+    <img src="/media/{{program.program_picture}}" width="65%"/>
+    <p style="font-size: 20px; font-weight: bold;
+              color: white; background-color: orange;">{{program.program_name}}</p>
+    <p>{{program.program_describe}}</p>
+    <p style="color: orange;">Продолжительность стажировки: </p><p> {{program.program_during}}</p>
+    <p style="color: orange;">Тип занятости: </p><p> {{program.program_employment}}</p>
+    <p style="color: orange;">Направления: </p>
+        {% if direction_list %}
+            <p>
+               {% for direction in direction_list %}
+                    {{direction}} <br>
+               {% endfor %}
+            </p>
+        {% endif%}
+    </p>
+    <p style="color: orange;">Требования к кандидатам: </p>
+        {% if requirement_list %}
+            <p>
+               {% for requirement in requirement_list %}
+                     {{requirement}} </br>
+               {% endfor %}
+            </p>
+             {% endif%}
+    </p>
+    <p style="color: orange;">Оплата: </p> <p>{{program.program_paying}}</p>
+    <p style="color: orange;">Свяжитесь с нами: </p> <p>{{program.program_contact}}</p>
+    <p style="font-size:14px;">Прием заявок: <b> {{program.program_timing}}</b></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+         {% if 'user_session' in request.session%}
+            <a class="right" href="{%url 'mains:login' %}">{{username}} - Выйти</a>
+        {% else %}
+            <a class="right" href="{%url 'mains:login' %}">Вход</a>
+        {% endif %}
+    </div>
+</div>
+<div class="programcontent">
+    <form class="report" method="post" action="report">
+        <b>{{messagesuccess}}</b>
+        <p> Для формирования отчета о популярных программах стажировок<br>
+            необходимо ввести ФИО составителя:</p>
+        {% if messagefio %}
+            <input type="text" name="fio" style="color: red;" placeholder="Введите ФИО составителя" required value="{{messagefio}}"/>
+        {% else %}
+            <input type="text" name="fio" style="color: black;" placeholder="Введите ФИО составителя" required value="{{fio}}"/>
+        {% endif %}
+        <p align="center"><input class="button" type="submit" value="Получить отчет"></p>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+        {% if 'user_session' in request.session %}
+            <a class="right" href="{%url 'mains:logout' %}">{{username}} - Выйти</a>
+        {% else %}
+            <a class="right" href="{%url 'mains:login' %}">Вход</a>
+        {% endif %}
+    </div>
+</div>
+<div class="main">
+        {% if latest_program_list %}
+            {% for program in latest_program_list %}
+                <div class="formprogram">
+                    <br>
+                    <img src="/media/{{program.program_picture}}" width="100%" />
+                    <p style="font-size: 17px; font-weight: bold;">{{program.program_name}}</p>
+                    <p>{{program.program_describe}}</p>
+                    <p style="font-size:14px;">Прием заявок: <b> {{program.program_timing}}</b></p>
+                    <a class="button" href=" {% url 'mains:detail' program.id  %}">Подробнее</a>
+                    <a class="button" href="{% url 'mains:deletefav' program.id user_id %}">Удалить из избранного</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="font-family: 'Gerbera'; text-align: center; font-size: 18px;">Программ стажировок не найдено</p>
+        {% endif %}
+</div>
+</body>
+</html>

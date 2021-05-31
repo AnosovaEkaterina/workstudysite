@@ -1,0 +1,93 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+        <a href=" " class="left"></a>
+    </div>
+</div>
+<div class="formprogram">
+        <form method="post" action="edit" enctype="multipart/form-data">
+             <p>Название программы: <br>
+            {% if messagename %}
+                <input type="text" name="name" style="color: red;" required value="{{ messagename }}"/>
+            {% else %}
+                <input type="text" name="name" required value="{{ program_name }}"/>
+            {% endif %}
+            </p>
+            <p>Изображение для программы: <br>
+            {% if messagepicture %}
+                <input type="file" name="picture" accept="image/png, image/jpg, image/jpeg" style="color: red;" title="{{ messagepicture }}" />
+            {% else %}
+                <input type="file" name="picture" accept="image/png, image/jpg, image/jpeg"  style="color: black;" />
+            {% endif %}
+            </p>
+            <p>Описание программы: <br>
+            {% if messagedescribe %}
+                 <textarea name="describe" style="resize: none; color: red;" required >{{ messagedescribe }}</textarea>
+            {% else %}
+                <textarea name="describe" style="resize: none;" required >{{ program_describe }}</textarea>
+            {% endif %}
+            </p>
+            <p>Продолжительность программы: <br>
+            {% if messageduring %}
+                <input type="text" style="color:red;" name="during" required value="{{ messageduring }}"/>
+            {% else %}
+                <input type="text" name="during" required value="{{ program_during }}"/>
+            {% endif%}
+            </p>
+            <p>Тип занятости: <br>
+            {% if messageemployment %}
+                <input type="text" name="employment" style="color: red;" required value="{{ messageemployment }}"/>
+            {% else %}
+                <input type="text" name="employment" required value="{{ program_employment }}"/>
+            {% endif %}
+            </p>
+            <p>Направления программы: <br>
+            {% if messagedirection %}
+                <textarea name="direction" style="resize: none; color: red;" required>{{ messagedirection }}</textarea>
+            {% else %}
+                <textarea name="direction" style="resize: none;" required>{{ program_direction }}</textarea>
+            {% endif %}
+            </p>
+            <p>Требования к кандидатам: <br>
+            {% if messagerequirement %}
+                <textarea name="requirement" style="resize: none; color: red;" required>{{ messagerequirement }}</textarea>
+            {% else %}
+                <textarea name="requirement" style="resize: none;" required>{{ program_requirement }}</textarea>
+            {% endif %}
+            </p>
+            <p>Контакты: <br>
+            {% if messagecontact %}
+                <input type="text" name="contact" style="color: red;" required value="{{ messagecontact }}"/>
+            {% else %}
+                <input type="text" name="contact" required value="{{ program_contact }}"/>
+            {% endif %}
+            </p>
+            <p>Срок приема заявок: <br>
+            {% if messagetiming %}
+                <input type="text" name="timing" style="color: red;" required value="{{ messagetiming }}"/>
+            {% else %}
+                <input type="text" name="timing" required value="{{ program_timing }}"/>
+            {% endif %}
+            </p>
+            <p>Оплата: <br>
+            {% if messagepaying %}
+                <input type="text" name="paying" style="color: red;" required value="{{ messagepaying }}"/>
+            {% else %}
+                <input type="text" name="paying" required value="{{ program_paying }}"/>
+            {% endif %}
+            </p>
+        <p align="center"><input class="button" type="submit" value="Сохранить изменения"></p>
+    </form>
+</div>
+</body>
+</html>

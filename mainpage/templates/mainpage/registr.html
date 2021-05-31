@@ -1,0 +1,54 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+        <a href=" " class="left"></a>
+    </div>
+</div>
+<div class="logincontent">
+        <form class="login" method="post" action="registr">
+            {% csrf_token %}
+            <p style="font-size: 20px;">Добро пожаловать на сайт Work&Study</p>
+            <p style="color: red;">{{ message }}</p>
+            <p> Введите ваши ФИО <br>
+            {% if messagefio %}
+                <input type="text" name="fio" style="color: red;" placeholder="Введите ФИО" required value="{{messagefio}}"/>
+            {% else %}
+                <input type="text" name="fio" style="color: black;" placeholder="Введите ФИО" required value="{{fio}}"/>
+            {% endif %}
+            </p>
+            <p> Введите адрес электронной почты <br>
+            {% if messageaddress %}
+                <input type="text" name="address" style="color: red;" placeholder="Введите электронную почту" required value="{{messageaddress}}" />
+            {% else %}
+                <input type="text" name="address" style="color: black;" placeholder="Введите электронную почту" required value="{{address}}" />
+            {% endif %}
+            </p>
+            <p> Придумайте имя пользователя<br>
+            {% if messageusername %}
+                <input type="text" name="username" style="color: red;" placeholder="Введите логин" required value="{{messageusername}}"/>
+            {% else %}
+                 <input type="text" name="username" style="color: black;" placeholder="Введите логин" required value="{{username}}"/>
+            {% endif %}
+            </p>
+            <p>Придумайте пароль <br>
+            {% if messagepassword %}
+                <input type="text" name="password" style="color: red;" placeholder="Введите пароль" required value="{{messagepassword}}"/>
+            {% else %}
+                <input type="password" name="password" style="color: black;" placeholder="Введите пароль" required value="{{password}}" />
+            {% endif %}
+            </p>
+        <p align="center"><input class="button" type="submit" value="Зарегистрироваться"></p>
+    </form>
+</div>
+</body>
+</html>

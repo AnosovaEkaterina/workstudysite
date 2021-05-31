@@ -1,0 +1,76 @@
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Work&Study</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+</head>
+<body>
+<div class="header">
+    <div class="headletter">Work & Study</div>
+    Подбор стажировки для вашей будущей карьеры
+    <div class="menu">
+        {% if 'user_session' in request.session %}
+            <a class="right" href="{%url 'mains:logout' %}">{{username}} - Выйти</a>
+        {% else %}
+            <a class="right" href="{%url 'mains:login' %}">Вход</a>
+        {% endif %}
+    </div>
+</div>
+<div class="main">
+    {% if status == 'false' and 'user_session' in request.session %}
+        <p><a class="button" style="margin: 2%;" href="{% url 'mains:showfav' user_id %}">Показать избранные программы</a></p>
+    {% endif %}
+    {% if status == 'true' and 'user_session' in request.session %}
+    <p><a class="button" style="margin: 2%;" href="{% url 'mains:add' %}">Добавить новую программу стажировки</a></p>
+    <p><a class="button" style="margin: 2%;" href="{% url 'mains:report' %}">Создать отчет</a></p>
+    {% endif%}
+    <form class="filtr" method="post" action="filtr">
+        <p style="font-weight: bold;">Направление:</p>
+                    {% csrf_token %}
+                    <input type="text" name="direction" placeholder="Введите направление"><br>
+          <p style="font-weight: bold;">Занятость:</p>
+                    <input type="checkbox" name="employmentfull">Полная<br>
+                    <input type="checkbox" name="employmentpart">Частичная
+          <p style="font-weight: bold;">Продолжительность:</p>
+                              <input type="checkbox" name="duringsixmonth">до 6 месяцев<br>
+                              <input type="checkbox" name="duringsixmonthyear">от 6 месяцев до года<br>
+                              <input type="checkbox" name="duringonethreeyear">от года до 3 лет
+          <p style="font-weight: bold;">Оплата:</p>
+                     <input type="checkbox" name="payingpay">Оплачиваемая<br>
+                      <input type="checkbox" name="payingunpay">Неоплачиваемая
+          <p align="center"><input class="button" type="submit" value="Подобрать"></p>
+    </form>
+        {% if latest_program_list %}
+            {% for program in latest_program_list %}
+                <div class="content">
+                    <br>
+                    <img src="/media/{{program.program_picture}}" width="100%" />
+                    <p style="font-size: 17px; font-weight: bold;">{{program.program_name}}</p>
+                    <p>{{program.program_describe}}</p>
+                    <p style="font-size:14px;">Прием заявок: <b> {{program.program_timing}}</b></p>
+                    <a class="button" href=" {% url 'mains:detail' program.id  %}">Подробнее</a>
+                    {% if status == 'true' and 'user_session' in request.session %}
+                        <a class="button" href="{% url 'mains:editshow' program.id %}">Редактировать</a>
+                        <a class="button" href="{% url 'mains:delete' program.id %}">Удалить</a>
+                    {% endif %}
+                    {% if status == 'false' and 'user_session' in request.session%}
+                        {% if favours_program_list %}
+                                {% if program.id in favours_program_list %}
+                                    <a class="button" href="{% url 'mains:deletefav' program.id user_id %}">Удалить из избранного</a>
+                                {% else %}
+                                    <a class="button" href="{% url 'mains:addfav' program.id user_id %}">Добавить в избранное</a>
+                                {% endif %}
+                        {% else %}
+                            <a class="button" href="{% url 'mains:addfav' program.id user_id %}">Добавить в избранное</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="font-family: 'Gerbera'; text-align: center; font-size: 18px;">Программ стажировок не найдено</p>
+        {% endif %}
+</div>
+</body>
+</html>
